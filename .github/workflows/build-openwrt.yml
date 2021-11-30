@@ -58,7 +58,7 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        git clone -b $REPO_BRANCH --single-branch openwrt $REPO_URL
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         
     - name: Cache
@@ -100,7 +100,7 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8 V=99
+        make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
